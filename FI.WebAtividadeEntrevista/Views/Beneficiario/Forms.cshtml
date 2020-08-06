@@ -1,0 +1,71 @@
+﻿    <form id="formBeneficiarios" method="post">
+        <div id="beneficiariosModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Beneficiários</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="CPF">CPF:</label>
+                                    <input required="required" type="text" class="form-control" id="CPF" name="CPF" placeholder="Ex.: 999.999.999-99" maxlength="14">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="Nome">Nome:</label>
+                                    <input required="required" type="text" class="form-control" id="Nome" name="Nome" placeholder="Ex.: João da Silva" maxlength="50">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="hidden" id="idCliente" name="idCliente" value="@if (Model != null) {@Model.Id} else { @Html.Raw("0"); }" />
+
+                                    <input type="hidden" id="idBeneficiario" name="idBeneficiario" value="0" />
+                                    <label for="Incluir" style="color:white">Incluir</label>
+                                    <button type="submit" class="btn btn-sm btn-success form-control">Incluir</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row table-responsive">
+                            <table class="table" id="listaBeneficiarios">
+                                <thead>
+                                    <tr>
+                                        <th>CPF</th>
+                                        <th>Nome</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null && Model.Beneficiarios != null)
+                                    {
+                                        foreach (var beneficiario in Model.Beneficiarios)
+                                        {
+                                            <tr id="@beneficiario.Id">
+                                                <th scope="row">@beneficiario.CPF</th>
+                                                <td>@beneficiario.Nome</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm btn-primary form-control" onclick="AlterarBeneficiario('@beneficiario.Id')">Alterar</button>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm btn-primary form-control" onclick="ExcluirBeneficiario('@beneficiario.Id')">Excluir</button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div> <!-- /.modal -->
+    </form>
